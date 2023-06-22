@@ -105,19 +105,8 @@ class AnnouncementController extends Controller
      */
     public function edit(BaraholkaAnnouncement $announcement)
     {
-        // $distributions = $advertisement->distributions()->orderByDesc('created_at')->paginate(20);
-
-        // $distributions->each(function($distribution){
-        //     $distribution->chat_ids = collect(json_decode($distribution->chat_ids));
-        //     $distribution->results = collect(json_decode($distribution->results));
-        //     $distribution->chats_count = $distribution->chat_ids->count();
-        //     $distribution->ok_count = $distribution->results->where('ok', true)->count();
-        //     $distribution->false_count = $distribution->results->where('ok', false)->count();
-        // });
-
         return view('pozor_baraholka_bot::announcement.edit', compact(
             'advertisement',
-            // 'distributions'
         ));
     }
 
@@ -138,7 +127,7 @@ class AnnouncementController extends Controller
 
         if ($request->has('delete_photos')){
             foreach ($request->delete_photos as $id) {
-                $photo = $announcement->photos()->find($id)->delete();
+                $announcement->photos()->find($id)->delete();
             }
         }
 
