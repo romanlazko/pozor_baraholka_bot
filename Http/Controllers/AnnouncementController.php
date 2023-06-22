@@ -27,9 +27,6 @@ class AnnouncementController extends Controller
         $announcements->map(function ($announcement) use ($telegram){
             $announcement->chat = $announcement->chat()->first();
             $announcement->chat->photo = $telegram::getPhoto(['file_id' => $announcement->chat->photo]);
-            $announcement->photos = $announcement->photos->map(function ($photo) use ($telegram){
-                $photo->url = $telegram::getPhoto(['file_id' => $photo->file_id]);
-            });
             return $announcement;
         });
 
@@ -67,8 +64,12 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BaraholkaAnnouncement $announcement)
+    public function edit(BaraholkaAnnouncement $announcement, Telegram $telegram)
     {
+        $announsement = $announcement->photos->map(function ($photo) use ($telegram){
+            $photo->url = $telegram::getPhoto(['file_id' => $photo->file_id]);
+        });
+
         return view('pozor_baraholka_bot::announcement.edit', compact(
             'announcement',
         ));
