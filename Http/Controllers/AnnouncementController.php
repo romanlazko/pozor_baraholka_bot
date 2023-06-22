@@ -97,10 +97,6 @@ class AnnouncementController extends Controller
         }
 
         if ($request->hasFile('photos')) {
-            foreach ($request->file('photos') as $photos) {
-                $photos[] = ['url' => Storage::url($photos->store('public/announcements'))];
-            }
-
             $announcement->photos()->createMany(
                 $photos
             );
