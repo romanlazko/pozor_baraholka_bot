@@ -27,15 +27,15 @@
                         @method('patch')
 
                         <div>
-                            <x-telegram::form.label :value="__('Images:')" />
-                            <input id="images" type="file" name="images[]" multiple="multiple" accept="image/*" max="{{ 9-$announcement->photos->count() }}" class="mt-1 block w-full">
+                            <x-telegram::form.label :value="__('Photos:')" />
+                            <input id="photos" type="file" name="photos[]" multiple="multiple" accept="image/*" max="{{ 9-$announcement->photos->count() }}" class="mt-1 block w-full">
                             <div class="flex">
                                 @foreach ($announcement->photos as $photo)
                                     <div class="flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-1 imagePreview">
                                         <img src="{{ $photo->url }}" class="h-40 object-cover object-center">
                                         <div class="flex items-center mt-2">
-                                            <label for="image-{{ $photo->id }}" class="cursor-pointer text-blue-600 hover:underline mr-2">Delete</label>
-                                            <input id="image-{{ $photo->id }}" type="checkbox" name="delete_images[]" value="{{ $photo->id }}" class="imageCheckbox">
+                                            <label for="photo-{{ $photo->id }}" class="cursor-pointer text-blue-600 hover:underline mr-2">Delete</label>
+                                            <input id="photo-{{ $photo->id }}" type="checkbox" name="delete_photos[]" value="{{ $photo->id }}" class="imageCheckbox">
                                         </div>
                                     </div>
                                 @endforeach
