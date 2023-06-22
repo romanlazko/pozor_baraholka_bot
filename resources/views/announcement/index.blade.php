@@ -5,9 +5,7 @@
                 {{ __('Announcement') }}
             </h2>
             <div class="flex-col">
-                <x-telegram::a-buttons.secondary href="{{ route('pozor_baraholka_bot.announcement.create') }}" class="float-right">
-                    {{ __("✚Add announcement") }}
-                </x-telegram::a-buttons.secondary>
+                
             </div>
         </div>
     </x-slot>

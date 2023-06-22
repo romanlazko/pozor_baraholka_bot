@@ -36,45 +36,6 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pozor_baraholka_bot::announcement.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(AnnouncementRequest $request)
-    {
-        $images = [];
-
-        $announcement = BaraholkaAnnouncement::create(
-            Arr::except($request->validated(), ['images'])
-        );
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $images[] = ['url' => Storage::url($image->store('public/announcements'))];
-            }
-            $announcement->images()->createMany(
-                $images
-            );
-        }
-
-        return redirect()->route('pozor_baraholka_bot.announcement.index')->with([
-            'ok' => true,
-            'description' => "Announcement succesfuly created"
-        ]);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
