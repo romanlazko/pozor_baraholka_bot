@@ -28,9 +28,9 @@
 
                         <div>
                             <x-telegram::form.label :value="__('Images:')" />
-                            <input id="images" type="file" name="images[]" multiple="multiple" accept="image/*" max="{{ 9-$advertisement->images->count() }}" class="mt-1 block w-full">
+                            <input id="images" type="file" name="images[]" multiple="multiple" accept="image/*" max="{{ 9-$announcement->images->count() }}" class="mt-1 block w-full">
                             <div class="flex">
-                                @foreach ($advertisement->photos as $photo)
+                                @foreach ($announcement->photos as $photo)
                                     <div class="flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-1 imagePreview">
                                         <img src="{{ $photo->url }}" class="h-40 object-cover object-center">
                                         <div class="flex items-center mt-2">

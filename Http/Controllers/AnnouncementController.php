@@ -68,7 +68,7 @@ class AnnouncementController extends Controller
     public function edit(BaraholkaAnnouncement $announcement)
     {
         return view('pozor_baraholka_bot::announcement.edit', compact(
-            'advertisement',
+            'announcement',
         ));
     }
 
