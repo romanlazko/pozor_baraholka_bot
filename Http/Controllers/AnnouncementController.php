@@ -27,6 +27,7 @@ class AnnouncementController extends Controller
         $announcements->map(function ($announcement) use ($telegram){
             $announcement->chat = $announcement->chat()->first();
             $announcement->chat->photo = $telegram::getPhoto(['file_id' => $announcement->chat->photo]);
+            $announcement->photo = $telegram::getPhoto(['file_id' => $announcement->chat->photo]);
             return $announcement;
         });
 
