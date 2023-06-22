@@ -59,7 +59,9 @@
 
                             <x-telegram::table.buttons>
                                 <x-telegram::a-buttons.secondary href="{{ route('pozor_baraholka_bot.announcement.show', $announcement) }}">Test</x-telegram::a-buttons.secondary>
-                                <x-telegram::a-buttons.primary href="{{ route('pozor_baraholka_bot.announcement.edit', $announcement) }}">Edit</x-telegram::a-buttons.primary>
+                                @if ($announcement->status === 'new')
+                                    <x-telegram::a-buttons.primary href="{{ route('pozor_baraholka_bot.announcement.edit', $announcement) }}">Edit</x-telegram::a-buttons.primary>
+                                @endif
                                 <form action="{{ route('pozor_baraholka_bot.announcement.destroy', $announcement) }}" method="post" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')

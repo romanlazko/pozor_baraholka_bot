@@ -24,7 +24,7 @@
                     </p>
                     <form method="post" action="{{ route('pozor_baraholka_bot.announcement.update', $announcement) }}" class="space-y-6" enctype="multipart/form-data">
                         @csrf
-                        @method('post')
+                        @method('patch')
 
                         <div>
                             <x-telegram::form.label :value="__('Images:')" />
@@ -102,15 +102,6 @@
                                 <option @selected($announcement->category == 'other') value="other">#прочее</option>
                             </x-telegram::form.select>
                             <x-telegram::form.error class="mt-2" :messages="$errors->get('cost')" />
-                        </div>
-
-                        <div>
-                            <x-telegram::form.label for="condition" :value="__('Condition:*')" />
-                            <x-telegram::form.select id="condition" name="condition" class="mt-1 block w-full" required>
-                                <option @selected($announcement->condition == 'new') value="new">New</option>
-                                <option @selected($announcement->condition == 'used') value="used">Used</option>
-                            </x-telegram::form.select>
-                            <x-telegram::form.error class="mt-2" :messages="$errors->get('type')" />
                         </div>
 
                         <div>
