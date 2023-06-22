@@ -22,13 +22,13 @@
                     <p class="mt-1 text-sm text-gray-600">
                         {{ __('Use this form to edit announcement.') }}
                     </p>
-                    <form method="post" action="{{ route('pozor_baraholka_bot.announcement.update') }}" class="space-y-6" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('pozor_baraholka_bot.announcement.update', $announcement) }}" class="space-y-6" enctype="multipart/form-data">
                         @csrf
                         @method('post')
 
                         <div>
                             <x-telegram::form.label :value="__('Images:')" />
-                            <input id="images" type="file" name="images[]" multiple="multiple" accept="image/*" max="{{ 9-$announcement->images->count() }}" class="mt-1 block w-full">
+                            <input id="images" type="file" name="images[]" multiple="multiple" accept="image/*" max="{{ 9-$announcement->photos->count() }}" class="mt-1 block w-full">
                             <div class="flex">
                                 @foreach ($announcement->photos as $photo)
                                     <div class="flex-col sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-1 imagePreview">
@@ -45,7 +45,7 @@
                         
                         <div>
                             <x-telegram::form.label for="chat" :value="__('Chat:*')" />
-                            <x-telegram::form.input id="chat" name="chat" type="text" class="mt-1 block w-full" :value="old('chat')" required autocomplete="chat" placeholder="Write chat. User invisible"/>
+                            <x-telegram::form.input id="chat" name="chat" type="text" class="mt-1 block w-full" :value="old('chat', $announcement->chat)" required autocomplete="chat" placeholder="Write chat. User invisible"/>
                             <x-telegram::form.error class="mt-2" :messages="$errors->get('chat')" />
                         </div>
 
@@ -69,19 +69,19 @@
 
                         <div>
                             <x-telegram::form.label for="title" :value="__('Title:*')" />
-                            <x-telegram::form.input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title')" required autocomplete="title" placeholder="Write title. User visible"/>
+                            <x-telegram::form.input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $announcement->title)" required autocomplete="title" placeholder="Write title. User visible"/>
                             <x-telegram::form.error class="mt-2" :messages="$errors->get('title')" />
                         </div>
 
                         <div>
                             <x-telegram::form.label for="caption" :value="__('Caption:*')" />
-                            <x-telegram::form.input id="caption" name="caption" type="text" class="mt-1 block w-full" :value="old('caption')" required autocomplete="caption" placeholder="Write caption. User visible"/>
+                            <x-telegram::form.input id="caption" name="caption" type="text" class="mt-1 block w-full" :value="old('caption', $announcement->caption)" required autocomplete="caption" placeholder="Write caption. User visible"/>
                             <x-telegram::form.error class="mt-2" :messages="$errors->get('caption')" />
                         </div>
                 
                         <div>
                             <x-telegram::form.label for="cost" :value="__('Cost:*')" />
-                            <x-telegram::form.input id="cost" name="cost" type="text" class="mt-1 block w-full" :value="old('cost')" required autocomplete="cost" placeholder="Write cost. User visible"/>
+                            <x-telegram::form.input id="cost" name="cost" type="text" class="mt-1 block w-full" :value="old('cost', $announcement->cost)" required autocomplete="cost" placeholder="Write cost. User visible"/>
                             <x-telegram::form.error class="mt-2" :messages="$errors->get('cost')" />
                         </div>
 
