@@ -67,7 +67,7 @@ class AnnouncementController extends Controller
     public function edit(BaraholkaAnnouncement $announcement, Telegram $telegram)
     {
         $announsement = $announcement->photos->map(function ($photo) use ($telegram){
-            $photo->url = $telegram::getPhoto(['file_id' => $photo->file_id]);
+            $photo->url = asset($photo->file_id) ?? $telegram::getPhoto(['file_id' => $photo->file_id]);
         });
 
         return view('pozor_baraholka_bot::announcement.edit', compact(
