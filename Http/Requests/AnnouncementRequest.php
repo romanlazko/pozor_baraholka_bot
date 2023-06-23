@@ -26,7 +26,7 @@ class AnnouncementRequest extends FormRequest
         return [
             'city'                  => 'nullable|required|string',
             'type'                  => 'nullable|required|string',
-            'images.*'              => 'nullable|sometimes|image|max:2048',
+            'photos.*'              => 'nullable|sometimes|image|max:2048',
             'title'                 => 'nullable|required|string',
             'caption'               => 'nullable|required|string',
             'cost'                  => 'nullable|sometimes|string', 

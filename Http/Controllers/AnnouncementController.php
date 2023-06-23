@@ -100,9 +100,6 @@ class AnnouncementController extends Controller
             foreach ($request->file('photos') as $photo) {
                 $photos[] = ['file_id' => Storage::url($photo->store('public/announcements'))];
             }
-
-            // dd($photos);
-
             $announcement->photos()->createMany(
                 $photos
             );
