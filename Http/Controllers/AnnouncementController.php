@@ -67,9 +67,9 @@ class AnnouncementController extends Controller
     public function edit(BaraholkaAnnouncement $announcement, Telegram $telegram)
     {
         $announsement = $announcement->photos->map(function ($photo) use ($telegram){
-            $photo->url = Storage::exists($photo->file_id) 
-                ? asset($photo->file_id)
-                : ($telegram::getPhoto(['file_id' => $photo->file_id]));
+            $photo->url = file_exists(public_path($photo->file_id))
+                ? asset($photo->file_id) 
+                : $telegram::getPhoto(['file_id' => $photo->file_id]);
         });
 
         return view('pozor_baraholka_bot::announcement.edit', compact(
@@ -100,7 +100,7 @@ class AnnouncementController extends Controller
 
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
-                $photos[] = ['file_id' => Storage::url($photo->store('public/announcements'))];
+                $photos[] = ['file_id' => asset(Storage::url($photo->store('public/announcements')))];
             }
             $announcement->photos()->createMany(
                 $photos
