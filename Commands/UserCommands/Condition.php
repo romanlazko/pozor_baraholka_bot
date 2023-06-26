@@ -25,7 +25,7 @@ class Condition extends Command
                 array('Новое', SaveCondition::$command, 'new')
             ],
             [
-                array("👈 Назад", Cost::$command, ''),
+                array("👈 Назад", Category::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')
             ]
         ], 'condition');

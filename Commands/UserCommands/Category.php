@@ -42,7 +42,7 @@ class Category extends Command
                 array("Прочее", SaveCategory::$command, 'other'),
             ],
             [
-                array("👈 Назад", $notes['next'] === 'title' ? Condition::$command : Photo::$command, ''),
+                array("👈 Назад", $notes['next'] === 'title' ? Cost::$command : Photo::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')
             ],
         ], 'category');

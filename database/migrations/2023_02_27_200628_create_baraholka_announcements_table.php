@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('cost')->nullable();
             $table->string('category')->nullable();
             $table->string('condition')->nullable();
-            $table->unsignedBigInteger('views')->nullable();
+            $table->unsignedBigInteger('views')->default('0');
             $table->string('status')->default('new')->nullable();
 
             $table->timestamps();

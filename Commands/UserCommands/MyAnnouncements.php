@@ -24,7 +24,7 @@ class MyAnnouncements extends Command
 
     public function execute(Update $updates): Response
     {
-        $announcements = BaraholkaAnnouncement::where('chat', DB::getChat($updates->getChat()->getId())->id,)
+        $announcements = BaraholkaAnnouncement::where('chat', DB::getChat($updates->getChat()->getId())->id)
             ->whereIn('status', ['new', 'published'])
             ->paginate(10);
 
@@ -41,7 +41,10 @@ class MyAnnouncements extends Command
             return [array($status. " " .($announcement->title ?? $announcement->caption), ShowMyAnnouncement::$command, $announcement->id)];
         })->toArray();
         
-        $buttons = BotApi::inlineKeyboard($buttons, 'announcement_id');
+        $buttons = BotApi::inlineKeyboard([
+            ...$buttons,
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
+        ], 'announcement_id');
 
         $data = [
             'text'          => "Мои объявления",

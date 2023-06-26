@@ -10,7 +10,7 @@ class SendAnnouncement
 {
     public function __invoke(Telegram $telegram, BaraholkaAnnouncement $announcement, int $chat_id)
     {
-        $photos = $announcement->photos->pluck('file_id')->take(9);
+        $photos = $announcement->dto()->photos;
 
         return $telegram::sendMessageWithMedia([
             'text'                      => $announcement->prepare(),

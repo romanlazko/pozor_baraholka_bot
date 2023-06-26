@@ -8,6 +8,7 @@ use App\Bots\pozor_baraholka_bot\Http\Requests\AnnouncementRequest;
 use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Romanlazko\Telegram\App\Telegram;
@@ -20,18 +21,36 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Telegram $telegram)
+    public function index(Telegram $telegram, Request $request)
     {
-        $announcements = BaraholkaAnnouncement::with('chat')->get();
+        $search = strtolower($request->search);
+        
+        $announcements = BaraholkaAnnouncement::orderByDesc('created_at')
+            ->when(!empty($request->input('search')), function($query) use($search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->whereRaw('LOWER(title) LIKE ?', ['%' . $search . '%'])
+                        ->orWhereRaw('LOWER(caption) LIKE ?', ['%' . $search . '%'])
+                        ->orWhereRaw('LOWER(category) LIKE ?', ['%' . $search . '%'])
+                        ->orWhereHas('chat', function ($query) use ($search) {
+                            $query->whereRaw('LOWER(first_name) LIKE ?', ['%' . $search . '%'])
+                                ->orWhereRaw('LOWER(last_name) LIKE ?', ['%' . $search . '%'])
+                                ->orWhereRaw('LOWER(username) LIKE ?', ['%' . $search . '%'])
+                                ->orWhereRaw('LOWER(chat_id) LIKE ?', ['%' . $search . '%']);
+                        });
+                });
+            })
+            ->with('chat')
+            ->paginate(50);
 
-        $announcements->map(function ($announcement) use ($telegram){
+        $announcements_collection = $announcements->map(function ($announcement) use ($telegram){
             $announcement->chat = $announcement->chat()->first();
             $announcement->chat->photo = $telegram::getPhoto(['file_id' => $announcement->chat->photo]);
             return $announcement;
         });
 
         return view('pozor_baraholka_bot::announcement.index', compact(
-            'announcements'
+            'announcements',
+            'announcements_collection'
         ));
     }
 
@@ -43,7 +62,7 @@ class AnnouncementController extends Controller
      */
     public function show(BaraholkaAnnouncement $announcement, Telegram $telegram, SendAnnouncement $sendAnnouncement)
     {
-        $admins = User::pluck('chat_id');
+        $admins = $telegram->getAdmins();
 
         foreach ($admins as $admin) {
             try {

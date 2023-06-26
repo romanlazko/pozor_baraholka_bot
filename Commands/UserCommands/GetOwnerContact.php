@@ -50,7 +50,7 @@ class GetOwnerContact extends Command
 
         $text = [
             "<b>Вот контакт на автора объявления:</b>",
-            $announcement->title ?? $announcement->caption
+            $announcement->prepare()
         ];
 
         return BotApi::sendMessage([

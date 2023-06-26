@@ -37,7 +37,7 @@
                     </tr>
                 </x-telegram::table.thead>
                 <x-telegram::table.tbody>
-                    @forelse ($announcements as $index => $announcement)
+                    @forelse ($announcements_collection as $index => $announcement)
                         <tr class="@if($index % 2 === 0) bg-gray-100 @endif text-sm">
                             <x-telegram::table.td>{{ $announcement->id }}</x-telegram::table.td>
                             <x-telegram::table.td>
@@ -74,5 +74,8 @@
                 </x-telegram::table.tbody>
             </x-telegram::table.table>
         </x-telegram::white-block>
+        <div class="mx-3">
+            {{ $announcements->withQueryString()->links() }}
+        </div>
     </x-slot>
 </x-telegram::layout>

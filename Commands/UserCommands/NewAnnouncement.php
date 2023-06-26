@@ -24,6 +24,8 @@ class NewAnnouncement extends Command
     {
         $this->getConversation()->clear();
 
+        $this->updates->getInlineData()->unset();
+
         $buttons = BotApi::inlineKeyboard([
             [
                 array('Прага', AnnouncementType::$command, 'prague'),

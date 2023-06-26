@@ -30,7 +30,11 @@ class SaveCategory extends Command
         $this->getConversation()->update([
             'category' => $category
         ]);
+
+        if ($category === 'animals'){
+            return $this->bot->executeCommand(Caption::$command);
+        }
             
-        return $this->bot->executeCommand(Caption::$command);
+        return $this->bot->executeCommand(Condition::$command);
     }
 }

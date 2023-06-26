@@ -20,6 +20,6 @@ class SaveCondition extends Command
             'condition' => $updates->getInlineData()->getCondition(),
         ]);
             
-        return $this->bot->executeCommand(Category::$command);
+        return $this->bot->executeCommand(Caption::$command);
     }
 }

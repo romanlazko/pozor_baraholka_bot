@@ -26,7 +26,7 @@ class Caption extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [
-                array("👈 Назад", Category::$command, ''),
+                array("👈 Назад", Condition::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')
             ],
         ]);

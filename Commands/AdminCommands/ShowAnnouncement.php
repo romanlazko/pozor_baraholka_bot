@@ -2,7 +2,6 @@
 
 namespace App\Bots\pozor_baraholka_bot\Commands\AdminCommands;
 
-use App\Bots\pozor_baraholka_bot\Http\DataTransferObjects\Announcement;
 use Romanlazko\Telegram\App\BotApi;
 use App\Bots\pozor_baraholka_bot\Models\BaraholkaAnnouncement;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -33,7 +32,7 @@ class ShowAnnouncement extends Command
             BotApi::sendMessageWithMedia([
                 'text'                      => $announcement->prepare(),
                 'chat_id'                   => $updates->getChat()->getId(),
-                'media'                     => $announcement->photo ?? null,
+                'media'                     => $announcement->dto()->photos ?? null,
                 'parse_mode'                => 'HTML',
                 'disable_web_page_preview'  => 'true',
             ]);
@@ -53,8 +52,18 @@ class ShowAnnouncement extends Command
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'announcement_id');
 
+        $contact = $announcement->chat()->first()->username 
+            ? "*@{$announcement->chat()->first()->username}*" 
+            : "[{$announcement->chat()->first()->first_name} {$announcement->chat()->first()->last_name}](tg://user?id={$announcement->chat()->first()->chat_id})";
+
+        $text = implode("\n", [
+            "Так будет выглядеть объявление." ."\n",
+            "Автор: {$contact}" . "\n",
+            "*Публикуем?*", 
+        ]);
+
         return BotApi::sendMessage([
-            'text'          => "Так будет выглядеть объявление." ."\n\n". "*Публикуем?*", 
+            'text'          => $text,
             'chat_id'       => $updates->getChat()->getId(),
             'parse_mode'    => 'Markdown',
             'reply_markup'  => $buttons
