@@ -23,7 +23,5 @@ class Config
             ],
             'bot_username' => 'pozorbottestbot'
         ];
-    }
-
-    
+    }    
 }
