@@ -95,7 +95,7 @@ class Announcement
         }
 
         if ($this->cost) {
-            $text[] = "<i>Стоимость:</i> {$this->cost}";
+            $text[] = "<i>Стоимость:</i> {$this->cost} CZK";
         }
 
         if ($this->id) {
