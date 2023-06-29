@@ -54,11 +54,11 @@ class GetOwnerContact extends Command
         ];
 
         return BotApi::sendMessage([
-            'text'          => implode("\n\n", $text),
-            'reply_markup'  => $buttons,
-            'chat_id'       => $this->updates->getChat()->getId(),
-            'parse_mode'    => 'HTML',
-            'disable_web_page_preview' => true,
+            'text'                      => implode("\n\n", $text),
+            'reply_markup'              => $buttons,
+            'chat_id'                   => $this->updates->getChat()->getId(),
+            'parse_mode'                => 'HTML',
+            'disable_web_page_preview'  => true,
         ]);
     }
 }
