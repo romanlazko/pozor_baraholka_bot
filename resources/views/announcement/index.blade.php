@@ -15,15 +15,14 @@
         </x-telegram::white-block>
 
         <x-telegram::white-block class="p-0">
-            <x-telegram::table.table class="whitespace-nowrap">
+            <x-telegram::table.table>
                 <x-telegram::table.thead>
                     <tr>
                         <x-telegram::table.th>id</x-telegram::table.th>
                         <x-telegram::table.th>Chat</x-telegram::table.th>
                         <x-telegram::table.th>City</x-telegram::table.th>
                         <x-telegram::table.th>Type</x-telegram::table.th>
-                        <x-telegram::table.th>Title</x-telegram::table.th>
-                        <x-telegram::table.th>Caption</x-telegram::table.th>
+                        <x-telegram::table.th>Announcement</x-telegram::table.th>
                         <x-telegram::table.th>Cost</x-telegram::table.th>
                         <x-telegram::table.th>Category</x-telegram::table.th>
                         <x-telegram::table.th>Condition</x-telegram::table.th>
@@ -40,19 +39,21 @@
                     @forelse ($announcements_collection as $index => $announcement)
                         <tr class="@if($index % 2 === 0) bg-gray-100 @endif text-sm">
                             <x-telegram::table.td>{{ $announcement->id }}</x-telegram::table.td>
-                            <x-telegram::table.td>
+                            <x-telegram::table.td class="whitespace-nowrap">
                                 <x-telegram::chat.card :chat="$announcement->chat"/>
                             </x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->city }}</x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->type }}</x-telegram::table.td>
-                            <x-telegram::table.td>{{ $announcement->title }}</x-telegram::table.td>
-                            <x-telegram::table.td>{{ $announcement->caption }}</x-telegram::table.td>
+                            <x-telegram::table.td>
+                                <p><b>{{ $announcement->title }}</b></p>
+                                <p>{{ $announcement->caption }}</p>
+                            </x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->cost }}</x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->category }}</x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->condition }}</x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->views }}</x-telegram::table.td>
                             <x-telegram::table.td>{{ $announcement->status }}</x-telegram::table.td>
-                            <x-telegram::table.td>
+                            <x-telegram::table.td class="whitespace-nowrap">
                                 <p>{{ $announcement->created_at->diffForHumans() }}</p>
                                 <p>{{ $announcement->updated_at->diffForHumans() }}</p>
                             </x-telegram::table.td>
