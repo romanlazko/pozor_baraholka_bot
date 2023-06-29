@@ -16,12 +16,11 @@ class Config
                 'category'          => null,
                 'announcement_id'   => null,
             ],
-            'brno'      => '@pozor_test',
-            'prague'    => '@pozor_test',
+            'brno'      => '@pozor_baraholka',
+            'prague'    => '@baraholkaprague',
             'admin_ids'         => [
-                
             ],
-            'bot_username' => 'pozorbottestbot'
+            'bot_username' => 'pozor_baraholka_bot'
         ];
     }    
 }

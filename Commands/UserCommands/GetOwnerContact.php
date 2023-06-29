@@ -58,6 +58,7 @@ class GetOwnerContact extends Command
             'reply_markup'  => $buttons,
             'chat_id'       => $this->updates->getChat()->getId(),
             'parse_mode'    => 'HTML',
+            'disable_web_page_preview' => true,
         ]);
     }
 }
