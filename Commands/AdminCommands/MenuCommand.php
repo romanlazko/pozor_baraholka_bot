@@ -27,7 +27,11 @@ class MenuCommand extends Command
         $announcements = BaraholkaAnnouncement::where('status', 'new')->paginate(10);
 
         $buttons = $announcements->map(function (BaraholkaAnnouncement $announcement) {
-            return [array($announcement->title ?? $announcement->caption, ShowAnnouncement::$command, $announcement->id)];
+            $title = $announcement->title ?? $announcement->caption;
+
+            if ($title) {
+                return [array($title, ShowAnnouncement::$command, $announcement->id)];
+            }
         })->toArray();
 
         $buttons = count($buttons) > 0 ? BotApi::inlineKeyboard($buttons, 'announcement_id') : null;  
