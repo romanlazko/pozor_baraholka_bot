@@ -28,7 +28,7 @@ class IrrelevantAnnouncement extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status !== 'published' OR $announcement->status !== 'new') {
+        if ($announcement->status !== 'published' AND $announcement->status !== 'new') {
             throw new TelegramUserException("Объявление уже не актуально.");
         }
 
