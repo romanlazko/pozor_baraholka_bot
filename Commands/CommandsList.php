@@ -50,7 +50,9 @@ class CommandsList extends DefaultCommandsList
         'supergroup' => [
         ],
         'default'   => [
-        ]
+        ],
+        'channel'   => [
+        ],
     ];
 
     static public function getCommandsList(?string $auth)
