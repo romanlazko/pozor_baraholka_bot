@@ -30,13 +30,11 @@ class GetOwnerContact extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status === 'irrelevant') {
+        if ($announcement->status !== 'published') {
             throw new TelegramUserException("Объявление уже не актуально.");
         }
 
-        if ($announcement->status === 'published') {
-            $announcement->increment('views');
-        }
+        $announcement->increment('views');
         
         return $this->sendAnnouncementContact($announcement);
     }

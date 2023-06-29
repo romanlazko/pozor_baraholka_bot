@@ -27,12 +27,8 @@ class ShowMyAnnouncement extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status === 'irrelevant') {
-            throw new TelegramUserException("Объявление уже не актуально");
-        }
-
-        if ($announcement->status === 'rejected') {
-            throw new TelegramUserException("Объявление отклонено");
+        if ($announcement->status !== 'published' OR $announcement->status !== 'new') {
+            throw new TelegramUserException("Объявление уже не актуально.");
         }
 
         try {
@@ -54,6 +50,7 @@ class ShowMyAnnouncement extends Command
     private function sendConfirmMessage(Update $updates, BaraholkaAnnouncement $announcement): Response
     {
         $buttons = BotApi::inlineKeyboard([
+            $announcement->status === 'published' ? [array(SoldAnnouncement::getTitle('ru'), SoldAnnouncement::$command, $announcement->id)] : [],
             [array(IrrelevantAnnouncement::getTitle('ru'), IrrelevantAnnouncement::$command, $announcement->id)],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')]
         ], 'announcement_id');

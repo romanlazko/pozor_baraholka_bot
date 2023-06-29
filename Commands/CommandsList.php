@@ -45,6 +45,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\MyAnnouncements::class,
             UserCommands\ShowMyAnnouncement::class,
             UserCommands\IrrelevantAnnouncement::class,
+            UserCommands\SoldAnnouncement::class,
             UserCommands\GetOwnerContact::class,
         ],
         'supergroup' => [

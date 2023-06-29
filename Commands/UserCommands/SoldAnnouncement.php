@@ -9,16 +9,16 @@ use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 use Romanlazko\Telegram\Exceptions\TelegramUserException;
 
-class IrrelevantAnnouncement extends Command
+class SoldAnnouncement extends Command
 {
-    public static $command = 'irrelevant';
+    public static $command = 'sold';
 
     public static $title = [
-        'ru' => 'Не актуально',
-        'en' => 'Irrelevant'
+        'ru' => 'Продано',
+        'en' => 'Sold'
     ];
 
-    public static $usage = ['irrelevant'];
+    public static $usage = ['sold'];
 
     protected $enabled = true;
 
@@ -28,12 +28,12 @@ class IrrelevantAnnouncement extends Command
             throw new TelegramUserException("Объявление не найдено");
         });
 
-        if ($announcement->status !== 'published' OR $announcement->status !== 'new') {
+        if ($announcement->status !== 'published') {
             throw new TelegramUserException("Объявление уже не актуально.");
         }
 
         $announcement->update([
-            'status' => 'irrelevant'
+            'status' => 'sold'
         ]);
 
         BotApi::answerCallbackQuery([
