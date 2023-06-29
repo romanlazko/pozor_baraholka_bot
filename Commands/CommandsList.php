@@ -51,8 +51,6 @@ class CommandsList extends DefaultCommandsList
         ],
         'default'   => [
         ],
-        'channel'   => [
-        ],
     ];
 
     static public function getCommandsList(?string $auth)

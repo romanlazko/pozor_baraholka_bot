@@ -22,5 +22,5 @@ class Config
             ],
             'bot_username' => 'pozor_baraholka_bot'
         ];
-    }    
+    }
 }
